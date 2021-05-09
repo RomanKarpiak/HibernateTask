@@ -1,6 +1,6 @@
 package com.roman.daoImpl;
 
-import com.roman.HibernateUtil;
+import com.roman.util.HibernateUtil;
 import com.roman.dao.CustomerDAO;
 import com.roman.entity.Customer;
 import com.sun.istack.internal.NotNull;

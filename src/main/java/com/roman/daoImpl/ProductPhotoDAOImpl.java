@@ -1,73 +1,70 @@
 package com.roman.daoImpl;
 
+import com.roman.dao.ProductPhotoDao;
+import com.roman.entity.ProductPhoto;
 import com.roman.util.HibernateUtil;
-import com.roman.dao.ProductDAO;
-import com.roman.entity.Product;
-import com.sun.istack.internal.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.Query;
 import java.util.List;
 
-public class ProductDAOImpl implements ProductDAO {
+public class ProductPhotoDAOImpl implements ProductPhotoDao {
 
     private final SessionFactory factory;
 
-    public ProductDAOImpl() {
+    public ProductPhotoDAOImpl() {
         this.factory = HibernateUtil.getSessionFactory();
     }
 
-@Override
-    public void create(@NotNull final Product product) {
+    @Override
+    public void create(ProductPhoto productPhoto) {
         try (final Session session = factory.openSession()) {
             session.beginTransaction();
-            System.out.println("Saving the customer...");
-            session.save(product);
+            session.save(productPhoto);
             session.getTransaction().commit();
-            System.out.println("Done!");
         }
+
     }
 
     @Override
-    public Product read(@NotNull final Long id) {
+    public ProductPhoto read(Long id) {
         try (final Session session = factory.openSession()) {
-            final Product result = session.get(Product.class, id);
-            return result != null ? result : new Product();
+            session.beginTransaction();
+            ProductPhoto productPhoto = session.get(ProductPhoto.class, id);
+            return productPhoto != null ? productPhoto : new ProductPhoto();
         }
     }
 
     @Override
-    public void updateProduct(@NotNull final Product product) {
+    public void updateProductPhoto(ProductPhoto productPhoto) {
         try (Session session = factory.openSession()) {
 
             session.beginTransaction();
 
-            session.update(product);
+            session.update(productPhoto);
 
+            session.getTransaction().commit();
+        }
+
+    }
+
+    @Override
+    public void delete(ProductPhoto productPhoto) {
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            session.delete(productPhoto);
             session.getTransaction().commit();
         }
     }
 
-
     @Override
-    public void deleteProduct(@NotNull final Product product) {
-        try (Session session = factory.openSession()) {
-
-            session.beginTransaction();
-
-            session.delete(product);
-
-            session.getTransaction().commit();
-        }
-    }
-    @Override
-    public List<Product> findAll() {
+    public List<ProductPhoto> findAll() {
         try (Session session = factory.openSession()) {
             session.beginTransaction();
-            Query query = session.createQuery("select p from Product p");
-            List<Product> products = (List<Product>) query.getResultList();
-            return products;
+            Query query = session.createQuery("select pp from ProductPhoto pp");
+            return (List<ProductPhoto>) query.getResultList();
         }
+
     }
 }

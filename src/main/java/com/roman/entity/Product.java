@@ -1,17 +1,25 @@
 package com.roman.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
+    @Column(name = "price")
     private int price;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "productId")
+    private List<ProductPhoto> productPhotos = new ArrayList<>();
 
     public Product() {
     }
@@ -54,8 +62,16 @@ public class Product {
         this.price = price;
     }
 
+    public List<ProductPhoto> getProductPhotos() {
+        return productPhotos;
+    }
+
+    public void setProductPhotos(List<ProductPhoto> productPhotos) {
+        this.productPhotos = productPhotos;
+    }
+
     @Override
     public String toString() {
-        return String.format("%-10d%-10s%-10s%-10d\n",id,name,description,price);
+        return String.format("%-5d%-20s%-20s%-10d\n",id,name,description,price);
     }
 }

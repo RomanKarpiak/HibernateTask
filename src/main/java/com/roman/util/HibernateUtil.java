@@ -1,4 +1,4 @@
-package com.roman;
+package com.roman.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
