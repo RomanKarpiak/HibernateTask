@@ -1,28 +1,25 @@
 package com.roman.entity;
 
-import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
-//@Entity
-//@Table(name = "address")
+@Embeddable
 public class Address {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long clientId;
+    @Column(name = "country")
     private String country;
+    @Column(name = "city")
     private String city;
+    @Column(name = "street")
     private String street;
 
     public Address() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Address(String country, String city, String street) {
+        this.country = country;
+        this.city = city;
+        this.street = street;
     }
 
     public String getCountry() {
@@ -50,25 +47,7 @@ public class Address {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Address address = (Address) o;
-        return Objects.equals(id, address.id) && Objects.equals(country, address.country) && Objects.equals(city, address.city) && Objects.equals(street, address.street);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, country, city, street);
-    }
-
-    @Override
     public String toString() {
-        return "com.roman.model.Address{" +
-                "id=" + id +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                '}';
+        return String.format("%-10s%-10s%-10s\n",country,city,street);
     }
 }

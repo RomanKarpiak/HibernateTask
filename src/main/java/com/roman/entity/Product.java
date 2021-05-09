@@ -2,7 +2,9 @@ package com.roman.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -21,7 +23,8 @@ public class Product {
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "productId")
     private List<ProductPhoto> productPhotos = new ArrayList<>();
 
-
+    @ManyToMany(mappedBy = "products")
+    private Set<Cart> carts =new HashSet<>();
     public Product() {
     }
 
@@ -69,6 +72,14 @@ public class Product {
 
     public void setProductPhotos(List<ProductPhoto> productPhotos) {
         this.productPhotos = productPhotos;
+    }
+
+    public Set<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<Cart> carts) {
+        this.carts = carts;
     }
 
     @Override

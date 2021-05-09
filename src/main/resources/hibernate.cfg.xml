@@ -17,6 +17,7 @@
         <mapping class="com.roman.entity.Product"/>
         <mapping class="com.roman.entity.ProductPhoto"/>
         <mapping class="com.roman.entity.Cart"/>
+        <mapping class="com.roman.entity.CartProduct"/>
 
     </session-factory>
 </hibernate-configuration >

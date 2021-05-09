@@ -1,11 +1,12 @@
 package com.roman.daoImpl;
 
-import com.roman.util.HibernateUtil;
 import com.roman.dao.CustomerDAO;
 import com.roman.entity.Customer;
+import com.roman.util.HibernateUtil;
 import com.sun.istack.internal.NotNull;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class CustomerDAOImpl implements CustomerDAO {
 
     private final SessionFactory factory;
+    private Transaction transaction = null;
 
     public CustomerDAOImpl() {
         this.factory = HibernateUtil.getSessionFactory();
@@ -36,10 +38,11 @@ public class CustomerDAOImpl implements CustomerDAO {
             final Customer result = session.get(Customer.class, id);
             return result != null ? result : new Customer();
         }
+
     }
 
     @Override
-    public void updateClient(@NotNull final Customer customer) {
+    public void updateCustomer(@NotNull final Customer customer) {
         try (Session session = factory.openSession()) {
 
             session.beginTransaction();
@@ -52,7 +55,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    public void deleteClient(@NotNull final Customer customer) {
+    public void deleteCustomer(@NotNull final Customer customer) {
         try (Session session = factory.openSession()) {
 
             session.beginTransaction();

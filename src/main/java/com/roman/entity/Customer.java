@@ -20,14 +20,24 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     private Cart cart;
 
+    @Embedded
+    @AttributeOverrides(value = {
+            @AttributeOverride(name="country", column = @Column(name = "country")),
+            @AttributeOverride(name="city",column = @Column(name = "city")),
+            @AttributeOverride(name = "street",column = @Column(name = "street"))
+    })
+    private Address address;
+
 
     public Customer() {
     }
 
-    public Customer(String name, String phone, String email) {
+    public Customer(String name, String phone, String email, Cart cart, Address address) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.cart = cart;
+        this.address = address;
     }
 
     public Long getId() {
@@ -70,9 +80,17 @@ public class Customer {
         this.cart = cart;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return String.format("%-10d%-10s%-10s%-10s\n",id,name,phone,email);
+        return String.format("%-10d%-10s%-10s%-10s%-10s\n",id,name,phone,email,address);
     }
 }
 
