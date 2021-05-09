@@ -50,7 +50,7 @@ public class ProductPhotoDAOImpl implements ProductPhotoDao {
     }
 
     @Override
-    public void delete(ProductPhoto productPhoto) {
+    public void deleteProductPhoto(ProductPhoto productPhoto) {
         try (Session session = factory.openSession()) {
             session.beginTransaction();
             session.delete(productPhoto);

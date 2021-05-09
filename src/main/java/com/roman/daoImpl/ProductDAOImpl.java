@@ -22,10 +22,8 @@ public class ProductDAOImpl implements ProductDAO {
     public void create(@NotNull final Product product) {
         try (final Session session = factory.openSession()) {
             session.beginTransaction();
-            System.out.println("Saving the customer...");
             session.save(product);
             session.getTransaction().commit();
-            System.out.println("Done!");
         }
     }
 

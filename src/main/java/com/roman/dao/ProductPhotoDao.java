@@ -11,7 +11,7 @@ public interface ProductPhotoDao {
 
     void updateProductPhoto(ProductPhoto productPhoto);
 
-    void delete(ProductPhoto productPhoto);
+    void deleteProductPhoto(ProductPhoto productPhoto);
 
     List<ProductPhoto> findAll();
 
